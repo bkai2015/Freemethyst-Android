@@ -4,113 +4,37 @@
 
 [![Android CI](https://github.com/Kaedo17/Freemethyst-Android/workflows/Android%20CI/badge.svg)](https://github.com/Kaedo17/Freemethyst-Android/actions)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/Kaedo17/Freemethyst-Android)](https://github.com/Kaedo17/Freemethyst-Android/actions)
-[![Crowdin](https://badges.crowdin.net/pojavlauncher/localized.svg)](https://crowdin.com/project/pojavlauncher)
-[![Discord](https://img.shields.io/discord/724163890803638273.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/5ptqkyZxEy)
 
-*From [Boardwalk](https://github.com/zhuowei/Boardwalk)'s ashes and [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher)'s ruined reputation, here comes Freemethyst!*
-
-Freemethyst is a launcher that allows you to play Minecraft: Java Edition on your Android device.
-
-For more details, check out our [wiki](https://github.com/Kaedo17/Freemethyst-Android/wiki)!
+Freemethyst is a fork of [Amethyst](https://github.com/AngelAuraMC/Amethyst-Android) (originally based on [Boardwalk](https://github.com/zhuowei/Boardwalk) and [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher)), a Minecraft: Java Edition launcher for Android.
 
 ## Table of Contents
 
-* [Introduction](#introduction)
-* [Getting Amethyst](#getting-amethyst)
 * [Building](#building)
-    * [Quick Build (Recommended)](#quick-build-recommended)
-    * [Detailed Build](#detailed-build)
-* [Current Status](#current-status)
-* [Known Issues](#known-issues)
-* [FAQ](#faq)
-* [Contributing](#contributing)
-* [Support](#support)
 * [License](#license)
 * [Credits & Dependencies](#credits--dependencies)
-* [Roadmap](#roadmap)
-
-## Introduction
-
-* Freemethyst is a Minecraft: Java Edition launcher for Android based on [Boardwalk](https://github.com/zhuowei/Boardwalk) and [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher)
-* This launcher can launch almost all available Minecraft versions ranging from rd-132211 to 1.21 snapshots (including Combat Test versions)
-* Modding via Forge and Fabric are also supported.
-* This repository contains source code for Android.
-
-## Getting Amethyst
-
-You can get Freemethyst via two methods:
-
-1. **Releases:** Download the latest prebuilt app from [nightly.link](https://nightly.link/Kaedo17/Freemethyst-Android/workflows/android/v3_openjdk/app-debug%20%28recommended%29.zip) or select an older version from our [automatic builds](https://github.com/Kaedo17/Freemethyst-Android/actions).
-2. **Build from Source:** Follow the [building instructions](#building) below.
 
 ## Building
 
-### Quick Build (Recommended)
-
-The easiest way to build Freemethyst is to use the pre-built JREs provided by our CI.
+### Quick Build
 
 1. Clone the repository: `git clone --recursive https://github.com/Kaedo17/Freemethyst-Android.git`
-2. Build the launcher: `./gradlew :app_pojavlauncher:assembleDebug` (Use `gradlew.bat` on Windows)
+2. Build the launcher: `./gradlew :app_pojavlauncher:assembleDebug`
 
 The built APK will be located in `app_pojavlauncher/build/outputs/apk/debug/`.
 
 ### Detailed Build
 
-If you need more control over the build process, follow these steps:
+1. **Java Runtime Environment (JRE):** Download the `jre8-pojav` artifact from the [CI auto builds](https://github.com/AngelAuraMC/angelauramc-openjdk-build/actions). This package contains pre-built JREs for all supported architectures.
 
-1. **Java Runtime Environment (JRE):** Download the `jre8-pojav` artifact from our [CI auto builds](https://github.com/Kaedo17/openjdk-build-multiarch/actions).  This package contains pre-built JREs for all supported architectures.  If you need to build the JRE yourself, follow the instructions in the [android-openjdk-build-multiarch](https://github.com/Kaedo17/openjdk-build-multiarch) repository.
+2. **LWJGL:** Build instructions are available in the [LWJGL repository](https://github.com/AngelAuraMC/lwjgl3).
 
-2. **LWJGL:** The build instructions for the custom LWJGL are available over the [LWJGL repository](https://github.com/Kaedo17/lwjgl3).
-
-3. **Language List:** Because languages are auto-added by Crowdin, you need to run the language list generator before building. In the project directory, run:
-   * Linux/macOS:
-     ```bash
-     chmod +x scripts/languagelist_updater.sh
-     bash scripts/languagelist_updater.sh
-     ```
-   * Windows:
-     ```batch
-     scripts\languagelist_updater.bat
-     ```
+3. **Language List:** Run the language list generator before building:
+   * Linux/macOS: `bash scripts/languagelist_updater.sh`
+   * Windows: `scripts\languagelist_updater.bat`
 
 4. **Build GLFW stub:** `./gradlew :jre_lwjgl3glfw:build`
 
-5. **Build the launcher:** `./gradlew :app_pojavlauncher:assembleDebug` (Replace `gradlew` with `gradlew.bat` on Windows).
-
-## Current Status
-
-* [x] OpenJDK 8 Mobile port: ARM32, ARM64, x86, x86_64
-* [x] OpenJDK 17 Mobile port: ARM32, ARM64, x86, x86_64
-* [x] OpenJDK 21 Mobile port: ARM32, ARM64, x86, x86_64
-* [x] Headless mod installer
-* [x] Mod installer with GUI
-* [x] OpenGL in OpenJDK environment
-* [x] OpenAL (works on most devices)
-* [x] Support for Minecraft 1.12.2 and below
-* [x] Support for Minecraft 1.13 and above
-* [x] Support for Minecraft 1.17 (22w13a) and above
-* [x] Game surface zooming
-* [x] New input pipe rewritten to native code
-* [x] Rewritten entire controls system
-* [ ] More to come!
-
-## Known Issues
-
-See our [issue tracker](https://github.com/Kaedo17/Freemethyst-Android/issues) for a list of known issues and their current status.
-
-## FAQ
-
-See our [wiki](https://github.com/Kaedo17/Freemethyst-Android/wiki) for more information.
-
-## Contributing
-
-Contributions are welcome! We welcome any type of contribution, not only code. For example, you can contribute to the [translations](https://crowdin.com/project/pojavlauncher), or submit bug reports and feature requests.
-
-Any code change should be submitted as a pull request. The description should explain what the code does and give steps to execute it.
-
-## Support
-
-For support, please open an [issue](https://github.com/Kaedo17/Freemethyst-Android/issues).
+5. **Build the launcher:** `./gradlew :app_pojavlauncher:assembleDebug`
 
 ## License
 
@@ -119,36 +43,24 @@ Freemethyst is licensed under [GNU LGPLv3](https://github.com/Kaedo17/Freemethys
 ## Credits & Dependencies
 
 * [Boardwalk](https://github.com/zhuowei/Boardwalk) (JVM Launcher): Unknown License/[Apache License 2.0](https://github.com/zhuowei/Boardwalk/blob/master/LICENSE) or GNU GPLv2.
-* [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher): [GLGPL](https://github.com/PojavLauncherTeam/PojavLauncher/blob/v3_openjdk/LICENSE)
+* [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher): [LGPL](https://github.com/PojavLauncherTeam/PojavLauncher/blob/v3_openjdk/LICENSE)
+* [Amethyst](https://github.com/AngelAuraMC/Amethyst-Android): [LGPL](https://github.com/AngelAuraMC/Amethyst-Android/blob/v3_openjdk/LICENSE)
 * Android Support Libraries: [Apache License 2.0](https://android.googlesource.com/platform/prebuilts/maven_repo/android/+/master/NOTICE.txt).
-* [GL4ES](https://github.com/Kaedo17/gl4es): [MIT License](https://github.com/ptitSeb/gl4es/blob/master/LICENSE).
+* [GL4ES](https://github.com/AngelAuraMC/gl4es): [MIT License](https://github.com/ptitSeb/gl4es/blob/master/LICENSE).
 * [MobileGlues](https://github.com/MobileGL-Dev/MobileGlues): [LGPL-2.1 License](https://github.com/MobileGL-Dev/MobileGlues/blob/dev-es/LICENSE).
 * [Krypton Wrapper](https://github.com/BZLZHH/NG-GL4ES): [MIT License](https://github.com/BZLZHH/NG-GL4ES/blob/main/LICENSE)
 * [ANGLE](https://chromium.googlesource.com/angle/angle): [All Rights Reserved](app_pojavlauncher/src/main/assets/licenses/ANGLE_LICENSE).
-* [OpenJDK](https://github.com/Kaedo17/openjdk-multiarch-jdk8u): [GNU GPLv2 License](https://openjdk.java.net/legal/gplv2+ce.html).
-* [LWJGL3](https://github.com/Kaedo17/lwjgl3): [BSD-3 License](https://github.com/LWJGL/lwjgl3/blob/master/LICENSE.md).
-* [LWJGLX](https://github.com/Kaedo17/lwjglx) (LWJGL2 API compatibility layer for LWJGL3): unknown license.
+* [OpenJDK](https://github.com/AngelAuraMC/openjdk-multiarch-jdk8u): [GNU GPLv2 License](https://openjdk.java.net/legal/gplv2+ce.html).
+* [LWJGL3](https://github.com/AngelAuraMC/lwjgl3): [BSD-3 License](https://github.com/LWJGL/lwjgl3/blob/master/LICENSE.md).
+* [LWJGLX](https://github.com/AngelAuraMC/lwjglx) (LWJGL2 API compatibility layer for LWJGL3): unknown license.
 * [Mesa 3D Graphics Library](https://gitlab.freedesktop.org/mesa/mesa): [MIT License](https://docs.mesa3d.org/license.html).
 * [pro-grade](https://github.com/pro-grade/pro-grade) (Java sandboxing security manager): [Apache License 2.0](https://github.com/pro-grade/pro-grade/blob/master/LICENSE.txt).
 * [bhook](https://github.com/bytedance/bhook) (Used for exit code trapping): [MIT license](https://github.com/bytedance/bhook/blob/main/LICENSE).
 * [libepoxy](https://github.com/anholt/libepoxy): [MIT License](https://github.com/anholt/libepoxy/blob/master/COPYING).
-* [virglrenderer](https://github.com/Kaedo17/virglrenderer): [MIT License](https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/COPYING).
+* [virglrenderer](https://github.com/AngelAuraMC/virglrenderer): [MIT License](https://gitlab.freedesktop.org/virgl/virglrenderer/-/blob/master/COPYING).
 * [OpenAL-Soft](https://github.com/kcat/openal-soft): [GNU GPLv2](app_pojavlauncher/src/main/assets/licenses/OPENAL-SOFT_GPL2)
   * [oboe](https://github.com/google/oboe): [Apache License 2.0](app_pojavlauncher/src/main/assets/licenses/OBOE_APACHE2).
   * [pfffft](https://bitbucket.org/jpommier/pffft/src/master/): [ARR](app_pojavlauncher/src/main/assets/licenses/PFFFT_LICENSE)
 * [SDL3](https://github.com/libsdl-org/SDL): [zlib License](https://github.com/libsdl-org/SDL/blob/main/LICENSE.txt)
 * [sdl2-compat](https://github.com/libsdl-org/sdl2-compat): [zlib License](https://github.com/libsdl-org/sdl2-compat/blob/main/LICENSE.txt)
 * Thanks to [MCHeads](https://mc-heads.net) for providing Minecraft avatars.
-
-## Roadmap
-
-We are currently focusing on:
-
-* Exploring new rendering technologies.
-
-Future plans include:
-
-* Improving stability and performance.
-* Enhancing the mod installation experience.
-
-We welcome community feedback and suggestions for our roadmap.  Please feel free to open a feature request in our [issue tracker](https://github.com/Kaedo17/Freemethyst-Android/issues).
