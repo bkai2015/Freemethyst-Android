@@ -105,7 +105,7 @@ public class MinecraftDownloader {
 
                         listener.onDownloadDone();
                     } catch (Exception e) {
-                        String tryagain = !isOnline ? "Please ensure you have an internet connection" : "Please try again on your Microsoft Account";
+                        String tryagain = "Please ensure you have an internet connection";
                         Tools.showErrorRemote(versionMessage + " is not currently installed. "+ tryagain, e);
                     }
                 }else {
