@@ -105,7 +105,13 @@ public class LauncherProfiles {
             launcherProfiles.profiles.remove(profileKey);
             hasNormalized = true;
         }
+// 新增字段，保存用户选中的目录 URI（SAF 持久化用 Uri 而非绝对路径）
+@SerializedName("gameDirectoryUri")
+private String gameDirectoryUri; // content:// URI，可指向外置 SD
 
+public String getGameDirectoryUri() { return gameDirectoryUri; }
+public void setGameDirectoryUri(String uri) { this.gameDirectoryUri = uri; }
         return hasNormalized;
     }
+    
 }
