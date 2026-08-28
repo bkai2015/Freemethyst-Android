@@ -409,6 +409,26 @@ public class LauncherActivity extends BaseActivity {
         mAccountSpinner = findViewById(R.id.account_spinner);
         mProgressLayout = findViewById(R.id.progress_layout);
     }
-    // 原版硬编码
-File mcDir = new File(context.getExternalFilesDir(null), "minecraft");
+    File mcDir = DirectoryHelper.getGameDirectory(context, currentProfile);
+// 同时把 workingDirectory / user.home 指向 mcDir
+    // 点击「选择游戏目录」按钮
+private static final int REQ_PICK_DIR = 1001;
+
+void onPickDirectory() {
+    Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
+                  | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                  | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+    startActivityForResult(intent, REQ_PICK_DIR);
+}
+
+@Override
+protected void onActivityResult(int req, int res, Intent data) {
+    super.onActivityResult(req, res, data);
+    if (req == REQ_PICK_DIR && res == RESULT_OK && data != null) {
+        currentProfile.setGameDirectoryUri(data.getDataString());
+        saveProfile(); // 持久化到 profile json
+    }
+}
+    
 }
