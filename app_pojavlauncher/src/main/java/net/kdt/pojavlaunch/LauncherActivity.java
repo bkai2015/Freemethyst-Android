@@ -409,4 +409,6 @@ public class LauncherActivity extends BaseActivity {
         mAccountSpinner = findViewById(R.id.account_spinner);
         mProgressLayout = findViewById(R.id.progress_layout);
     }
+    // 原版硬编码
+File mcDir = new File(context.getExternalFilesDir(null), "minecraft");
 }
