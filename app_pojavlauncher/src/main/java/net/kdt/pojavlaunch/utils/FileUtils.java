@@ -80,4 +80,19 @@ public class FileUtils {
         if(parentFile == null) throw new IOException("targetFile does not have a parent");
         ensureDirectory(parentFile);
     }
+    public static File getGameDirectory(Context ctx, Profile profile) {
+    String uriStr = profile.getGameDirectoryUri();
+    if (uriStr != null && !uriStr.isEmpty()) {
+        // SAF 持久化授权：可跨重启访问外置存储
+        Uri uri = Uri.parse(uriStr);
+        ctx.getContentResolver().takePersistableUriPermission(uri,
+                Intent.FLAG_GRANT_READ_URI_PERMISSION
+              | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        // 通过 DocumentFile 访问（兼容外置 SD）
+        DocumentFile dir = DocumentFile.fromTreeUri(ctx, uri);
+        return new File(dir.getUri().getPath()); // 或用 getPath() 兼容层
+    }
+    // 默认：原私有沙盒行为（保留兼容）
+    return new File(ctx.getExternalFilesDir(null), "minecraft");
+    }
 }
